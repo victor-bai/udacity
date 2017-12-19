@@ -1,5 +1,6 @@
 # -- coding: utf-8 --
 import numpy as np
+from fractions import Fraction
 
 class Bai:
     def __init__(self):
@@ -86,24 +87,37 @@ class Bai:
                     maxIndex = row
             if max > epsilon:
                 self.swapRows(Ab, col, maxIndex)
-                self.scaleRow(Ab, col, 1.0/Ab[col][col])
+                self.scaleRow(Ab, col, Fraction(1,1)/Ab[col][col])
                 for i in range(size):
                     if i == col:
                         continue
                     self.addScaledRow(Ab, i, col, -Ab[i][col])
             else:
                 return None
+            # print "第{}次：{}".format(col+1,np.asarray(Ab))
         res = [[0 for i in range(1)] for i in range(size)]
         for i in range(size):
             res[i][0] = Ab[i][size]
         return res
 
-A = [[-1,1,1],
-     [1,-4,4],
-     [7,-5,-11]]
-b = [[-2],
-     [21],
-     [0]]
+A = [[-8,2,-8,-1],
+     [-2,4,3,5],
+     [6,-4,-3,-2],
+     [9,-2,-4,-1]]
+B = [[-8,2,-8,-1],
+     [-2,4,3,5],
+     [6,-4,-3,-2],
+     [9,-2,-4,-1]]
+b = [[1],
+     [1],
+     [1],
+     [1]]
 bai = Bai()
 x = bai.gj_Solve(A,b,epsilon=1.0e-8)
-print np.asarray(x)
+# print np.asarray(x)
+# print np.dot(B,x)
+a = [1,2,3]
+b = [4,5,6]
+c = (a,b)
+b = [[1 for i in range(1)] for i in range(3)]
+print x[0]
